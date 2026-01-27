@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Ξερή</title>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <section id="screen-login">
+    <h1>XERI</h1>
+    <input id="login-username" placeholder="Όνομα χρήστη">
+    <button id="btn-login">Login</button>
+  </section>
+
+  <!--LOBBY SCREEN -->
+  <section id="screen-lobby" style="display:none">
+    <h2>Lobby</h2>
+    <button id="btn-create-game">CREATE GAME</button>
+    <button id="btn-refresh-lobby">REFRESH</button>
+    <button id="btn-logout">Logout</button>
+    <button id="btn-create-cpu">PLAY WITH CPU</button>
+    <h3>OPEN GAMES</h3>
+    <ul id="waiting-games"></ul>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="screen-game" style="display:none">
+    <h2>GAME</h2>
+    <div>
+  <strong>Status:</strong>
+  <span id="status-info"></span>
+    </div>
+    <button id="btn-logout-game">Logout</button>
+    <div>
+  <strong>Score:</strong>
+  <span id="score-info"></span>
+  <div id="game-msg" class="badge"></div>
+  
+        
+      <strong>TURN:</strong>
+      <span id="turn-info"></span>
+    </div>
+
+    <div class="table-area">
+  <div class="table-title">DECK</div>
+  <div id="table-cards" class="table-cards"></div>
+</div>
+
+
+    
+
+    <div>
+      <strong>MY HAND:</strong>
+      <div id="my-hand"></div>
+    </div>
+  </section>
+
+
+<!--css-->
+<link rel="stylesheet" href="style.css">
+
+  <!-- JS -->
+  <script src="app.js"></script>
+</body>
+</html>
