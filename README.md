@@ -17,7 +17,6 @@
     * [Users](#users)
     * [Games](#games)
     * [Game_state](#game_state)
-----------------------------------------
 # Demo Page
 Το παιχνίδι τρέχει τοπικά μέσω XAMPP.
 Frontend:  
@@ -57,8 +56,8 @@ http://localhost/phpmyadmin/index.php
 Η βάση δεδομένων αποθηκεύει μόνο την κατάσταση του παιχνιδιού, ενώ όλοι οι κανόνες υλοποιούνται στο backend API σε PHP.
 -----------------------------------------------
 # Περιγραφή API
-
-# Login χρήστη/AUTH
+### Auth
+#### Login χρήστη/AUTH
 POST /api.php?action=auth
 JSON body:
 ```json
@@ -66,32 +65,32 @@ JSON body:
 "username": "nikos"
 }
 Επιστρέφει token authentication.
------------------------------------------
+
 #game
 
 Δημιουργία παιχνιδιού
 POST /api.php?action=create_game
-------------------------------------------
+
 Δημιουργία παιχνιδιού με CPU
 POST /api.php?action=create_game_cpu
-------------------------------------------
+
 Συμμετοχή σε παιχνίδι
 POST /api.php?action=join_game
-------------------------------------------
+
 Ανάγνωση κατάστασης παιχνιδιού
 POST /api.php?action=get_game_state
------------------------------------------
+
 Παίξιμο κάρτας
 POST /api.php?action=play_card
---------------------------------------------
+
 #lobby
 
 Λίστα διαθέσιμων παιχνιδιών
 POST /api.php?action=list_waiting_games
-------------------------------------------
+
 Ακύρωση παιχνιδιού
 POST /api.php?action=cancel_game
------------------------------------------
+
 
 #Entities
 *users
@@ -101,9 +100,9 @@ POST /api.php?action=cancel_game
 | username   | Όνομα χρήστη           |
 | token      | Token authentication   |
 | created_at | Ημερομηνία δημιουργίας |
-------------------------------------------------
 
---------------------------------------------------
+
+
 *games
 | Attribute  | Description                  |
 | ---------- | ---------------------------- |
