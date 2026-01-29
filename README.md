@@ -55,18 +55,27 @@ http://localhost/phpmyadmin/index.php
 - Player vs CPU (υπολογιστής)
 Η βάση δεδομένων αποθηκεύει μόνο την κατάσταση του παιχνιδιού, ενώ όλοι οι κανόνες υλοποιούνται στο backend API σε PHP.
 -----------------------------------------------
-# Περιγραφή API
+## Περιγραφή API
+
+
 ### Auth
-#### Login χρήστη/AUTH
+
+
+#### Login χρήστη
+
 POST /api.php?action=auth
-JSON body:
+
+
+
+**JSON body:**
 ```json
 {
-"username": "nikos"
+  "username": "nikos"
 }
+
 Επιστρέφει token authentication.
 
-#game
+### game
 
 Δημιουργία παιχνιδιού
 POST /api.php?action=create_game
@@ -83,7 +92,7 @@ POST /api.php?action=get_game_state
 Παίξιμο κάρτας
 POST /api.php?action=play_card
 
-#lobby
+### Lobby
 
 Λίστα διαθέσιμων παιχνιδιών
 POST /api.php?action=list_waiting_games
@@ -92,7 +101,7 @@ POST /api.php?action=list_waiting_games
 POST /api.php?action=cancel_game
 
 
-#Entities
+### Entities
 *users
 | Attribute  | Description            |
 | ---------- | ---------------------- |
@@ -116,7 +125,7 @@ POST /api.php?action=cancel_game
 | vs_cpu     | Παιχνίδι με υπολογιστή       |
 | state      | JSON κατάσταση παιχνιδιού    |
 
-#Game_state
+### Game_state
 {
   "deck": [],
   "table": [],
