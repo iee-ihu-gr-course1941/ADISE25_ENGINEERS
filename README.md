@@ -139,6 +139,6 @@ POST /api.php?action=cancel_game
 ```
 
 *NOTES:
-Υποστηρίζεται multiplayer και CPU
-Πλήρες scoring στο τέλος του παιχνιδιού
+Υποστηρίζεται multiplayer και CPU,
+Πλήρες scoring στο τέλος του παιχνιδιού,
 Όλοι οι κανόνες υλοποιούνται σε PHP
