@@ -135,9 +135,10 @@ POST /api.php?action=cancel_game
   "xeri": { "p1": 0, "p2": 0 },
   "xeri_jack": { "p1": 0, "p2": 0 },
   "last_capturer": null
-}```
+}
+```
 
-NOTES:
+*NOTES:
 Υποστηρίζεται multiplayer και CPU
 Πλήρες scoring στο τέλος του παιχνιδιού
 Όλοι οι κανόνες υλοποιούνται σε PHP
