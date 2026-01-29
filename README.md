@@ -72,7 +72,7 @@ POST /api.php?action=auth
 {
   "username": "nikos"
 }
-
+```
 Επιστρέφει token authentication.
 
 ### game
@@ -126,6 +126,7 @@ POST /api.php?action=cancel_game
 | state      | JSON κατάσταση παιχνιδιού    |
 
 ### Game_state
+```json
 {
   "deck": [],
   "table": [],
@@ -134,7 +135,7 @@ POST /api.php?action=cancel_game
   "xeri": { "p1": 0, "p2": 0 },
   "xeri_jack": { "p1": 0, "p2": 0 },
   "last_capturer": null
-}
+}```
 
 NOTES:
 Υποστηρίζεται multiplayer και CPU
