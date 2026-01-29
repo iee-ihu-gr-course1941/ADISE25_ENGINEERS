@@ -67,7 +67,7 @@ JSON body:
 }
 Επιστρέφει token authentication.
 -----------------------------------------
-# GAME
+#game
 
 Δημιουργία παιχνιδιού
 POST /api.php?action=create_game
@@ -84,7 +84,7 @@ POST /api.php?action=get_game_state
 Παίξιμο κάρτας
 POST /api.php?action=play_card
 --------------------------------------------
-# Lobby
+#lobby
 
 Λίστα διαθέσιμων παιχνιδιών
 POST /api.php?action=list_waiting_games
@@ -94,7 +94,7 @@ POST /api.php?action=cancel_game
 -----------------------------------------
 
 #Entities
-*Users
+*users
 | Attribute  | Description            |
 | ---------- | ---------------------- |
 | id         | Μοναδικό ID χρήστη     |
@@ -104,7 +104,7 @@ POST /api.php?action=cancel_game
 ------------------------------------------------
 
 --------------------------------------------------
-*Games
+*games
 | Attribute  | Description                  |
 | ---------- | ---------------------------- |
 | id         | ID παιχνιδιού                |
