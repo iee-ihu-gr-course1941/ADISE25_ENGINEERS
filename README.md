@@ -21,17 +21,17 @@
 Το παιχνίδι τρέχει τοπικά μέσω XAMPP.
 Frontend:  
 http://localhost/xeri/
-API:  
+,API:  
 http://localhost/xeri/api.php
-DB:
+,DB:
 http://localhost/phpmyadmin/index.php
----------------------------------------
+
 # Εγκατάσταση
 ## Απαιτήσεις
 * Apache2 (XAMPP)
 * PHP 8+
 * Web Browser
-------------------------------------------
+  
 ## Οδηγίες Εγκατάστασης
 
 1. Αντιγράψτε τον φάκελο του project στον φάκελο του Apache:
