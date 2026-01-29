@@ -1,4 +1,4 @@
-// 1) Base URL του API (ένα σημείο μόνο)
+// 1) Base URL του API
 const API = "http://localhost/xeri/api.php";
 
 // 2) Μικρός helper: βρίσκω στοιχεία HTML εύκολα
@@ -57,13 +57,20 @@ async function apiPost(action, data) {
     body: JSON.stringify(data)
   });
 
-  // Αν ο server απαντήσει 400/500, πάλι μπορεί να έχει JSON error
-  const json = await res.json().catch(() => null);
+  const text = await res.text(); // ⬅️ παίρνουμε πρώτα plain text
+  let json = null;
 
-  if (!res.ok) {
-    // fallback error
+  try {
+    json = JSON.parse(text);
+  } catch (e) {
+    console.error("Server returned non-JSON:", text);
+    throw new Error("Ο server δεν επέστρεψε JSON (δες Console)");
+  }
+
+  if (!res.ok || json?.ok === false) {
     throw new Error(json?.error || `HTTP ${res.status}`);
   }
+
   return json;
 }
 
@@ -202,14 +209,20 @@ async function refreshGame() {
 
   state.gameState = d;
     $("status-info").textContent = d.status;
-    $("score-info").textContent = `p1: ${d.score_p1} | p2: ${d.score_p2}`
+    const s1 = d.score_p1 ?? 0;
+const s2 = d.score_p2 ?? 0;
+$("score-info").textContent = `p1: ${s1} | p2: ${s2}`;
 
 
   if (d.status === "waiting") {
   $("turn-info").textContent = "Περιμένουμε να μπει ο 2ος παίκτης...";
-  $("table-top").textContent = "(το παιχνίδι δεν ξεκίνησε)";
-  $("my-hand").innerHTML = "";
-  
+
+  const tableDiv = $("table-cards");
+  if (tableDiv) tableDiv.innerHTML = `<div class="table-empty">(το παιχνίδι δεν ξεκίνησε)</div>`;
+
+  const handDiv = $("my-hand");
+  if (handDiv) handDiv.innerHTML = "";
+
   return;
 }
 // Αν τελείωσε το παιχνίδι, σταματάμε το polling και δείχνουμε αποτέλεσμα
@@ -324,7 +337,7 @@ function startPolling() {
   stopPolling();
   pollTimer = setInterval(() => {
     // δεν περιμένουμε με await
-    refreshGame().catch(() => {});
+    refreshGame().catch((e) => console.error("Polling refresh error:", e));
   }, 1500);
 }
 
