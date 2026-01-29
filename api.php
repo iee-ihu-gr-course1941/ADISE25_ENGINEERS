@@ -360,8 +360,7 @@ if ($action === 'ping') {
 
 
 /**
- * POST auth/login χωρίς password
- *  Δεν υπάρχει password (απλό login με username)
+ * POST auth login χωρίς password (απλό login με username)
  *  Κάθε login δημιουργεί ΝΕΟ token
  *  Το token χρησιμοποιείται για authentication σε όλα τα υπόλοιπα endpoints
  */
@@ -403,7 +402,7 @@ if ($action === 'create_game') {
     respond(["ok"=>false, "error"=>"token required"], 400);
   }
 
-  // Βρες τον χρήστη από το token
+  // Βρες τον χρήστη από το τοκεν
   $st = $pdo->prepare("SELECT id, username FROM users WHERE token=?");
   $st->execute([$token]);
   $user = $st->fetch(PDO::FETCH_ASSOC);
@@ -552,7 +551,7 @@ if ($status !== 'waiting') {
 
 
 
-// --- START: φτιάχνουμε τράπουλα + shuffle + μοίρασμα και ενημερώνουμε state
+// START: φτιάχνουμε τράπουλα + shuffle + μοίρασμα και ενημερώνουμε state
 $DEAL = 6;
 
 // Πάρε το υπάρχον state (είναι JSON κείμενο στη βάση)
@@ -613,7 +612,7 @@ $pdo->prepare("UPDATE games SET state=? WHERE id=?")
 if ($action === 'get_game_state') {
 
   // =========================
-  // 1) Πάρε input
+  // Πάρε input
   // =========================
   $in = json_in();
   $token = $in['token'] ?? '';
@@ -624,7 +623,7 @@ if ($action === 'get_game_state') {
   }
 
   // =========================
-  // 2) Ταυτοποίηση χρήστη (token -> user)
+  // Ταυτοποίηση χρήστη (token -> user)
   // =========================
   $st = $pdo->prepare("SELECT id, username FROM users WHERE token=?");
   $st->execute([$token]);
@@ -635,7 +634,7 @@ if ($action === 'get_game_state') {
   }
 
   // =========================
-  // 3) Φόρτωσε το παιχνίδι
+  //  Φόρτωσε το παιχνίδι
   // =========================
   $st = $pdo->prepare("SELECT * FROM games WHERE id=?");
   $st->execute([$game_id]);
@@ -649,7 +648,7 @@ if ($action === 'get_game_state') {
   $status = $g['STATUS'] ?? $g['status'] ?? null;
 
   // =========================
-  // 4) Authorization:
+  // Authorization:
   //    Ο χρήστης ΠΡΕΠΕΙ να είναι παίκτης σε αυτό το game.
   //    Το token από μόνο του δεν αρκεί!
   // =========================
@@ -661,30 +660,24 @@ if ($action === 'get_game_state') {
     respond(["ok"=>false, "error"=>"not a player of this game"], 403);
   }
 
-  // =========================
-  // 5) Διάβασε state (JSON -> PHP array)
-  // =========================
+
+  //  Διάβασε state (JSON -> PHP array)
   $state = json_decode($g['state'] ?? '', true);
   if (!is_array($state)) {
     // fallback για ασφάλεια αν κάτι πάει στραβά
     $state = ["deck"=>[],"table"=>[],"hands"=>["p1"=>[],"p2"=>[]]];
   }
 
-  // =========================
-  // 6) Βρες ποιος είμαι: p1 ή p2
-  // =========================
+  //  Βρες ποιος είμαι: p1 ή p2
   $me = ($uid === $p1) ? 'p1' : 'p2';
 
-  // =========================
-  // 7) Φιλτράρουμε πληροφορία:
+  //  Φιλτράρουμε πληροφορία:
   //    Επιστρέφουμε ΜΟΝΟ ό,τι επιτρέπεται να δει ο παίκτης.
-  // =========================
   $my_hand = $state['hands'][$me] ?? [];
   $table = $state['table'] ?? [];
 $vs_cpu = (int)($g['vs_cpu'] ?? 0) === 1;
-  // =========================
-  // 8) Response
-  // =========================
+ 
+  //Response
   respond([
     "ok" => true,
     "game_id" => $game_id,
@@ -704,9 +697,8 @@ $vs_cpu = (int)($g['vs_cpu'] ?? 0) === 1;
 
 if ($action === 'play_card') {
 
-  // =========================
+
   // 1) Input
-  // =========================
   $in = json_in();
   $token = $in['token'] ?? '';
   $game_id = (int)($in['game_id'] ?? 0);
@@ -716,9 +708,7 @@ if ($action === 'play_card') {
     respond(["ok"=>false, "error"=>"token, game_id and card required"], 400);
   }
 
-  // =========================
   // 2) Βρες χρήστη από token
-  // =========================
   $st = $pdo->prepare("SELECT id, username FROM users WHERE token=?");
   $st->execute([$token]);
   $user = $st->fetch(PDO::FETCH_ASSOC);
@@ -726,9 +716,8 @@ if ($action === 'play_card') {
     respond(["ok"=>false, "error"=>"invalid token"], 401);
   }
 
-  // =========================
+
   // 3) Φόρτωσε παιχνίδι
-  // =========================
   $st = $pdo->prepare("SELECT * FROM games WHERE id=?");
   $st->execute([$game_id]);
   $g = $st->fetch(PDO::FETCH_ASSOC);
@@ -741,9 +730,7 @@ if ($action === 'play_card') {
     respond(["ok"=>false, "error"=>"game not playing"], 409);
   }
 
-  // =========================
   // 4) Authorization: είναι παίκτης;
-  // =========================
   $p1 = (int)$g['player1_id'];
   $p2 = (int)($g['player2_id'] ?? 0);
   $uid = (int)$user['id'];
@@ -758,18 +745,14 @@ if ($action === 'play_card') {
   // Το turn στη DB είναι 1 για p1, 2 για p2
   $myTurnNumber = ($me === 'p1') ? 1 : 2;
 
-  // =========================
   // 5) Έλεγχος σειράς
-  // =========================
   $turn = (int)($g['turn'] ?? 1);
   if ($turn !== $myTurnNumber) {
     respond(["ok"=>false, "error"=>"not your turn", "turn"=>$turn, "me"=>$me], 409);
   }
 
 
-  // =========================
   // 6) Φόρτωσε state (JSON -> array)
-  // =========================
   $state = json_decode($g['state'] ?? '', true);
   if (!is_array($state)) {
     $state = ["deck"=>[],"table"=>[],"hands"=>["p1"=>[],"p2"=>[]]];
