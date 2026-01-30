@@ -20,11 +20,14 @@
       
 # Demo Page
 Το παιχνίδι τρέχει τοπικά μέσω XAMPP.
+
 Frontend:  
 http://localhost/xeri/
-,API:  
+
+API:  
 http://localhost/xeri/api.php
-,DB:
+
+DB:
 http://localhost/phpmyadmin/index.php
 
 # Εγκατάσταση
