@@ -57,7 +57,7 @@ http://localhost/phpmyadmin/index.php
 -----------------------------------------------
 ## Περιγραφή API
 
-
+# methods 
 ### Auth
 
 
