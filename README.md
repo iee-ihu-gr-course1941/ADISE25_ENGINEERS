@@ -28,7 +28,6 @@ API:
 http://localhost/xeri/api.php
 
 DB:
-
 http://localhost/phpmyadmin/index.php
 
 # Εγκατάσταση
