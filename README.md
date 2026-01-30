@@ -74,9 +74,10 @@ DB: http://localhost/phpmyadmin/index.php
 - Player vs CPU (υπολογιστής)
 Η βάση δεδομένων αποθηκεύει μόνο την κατάσταση του παιχνιδιού, ενώ όλοι οι κανόνες υλοποιούνται στο backend API σε PHP.
 -----------------------------------------------
-## Περιγραφή API
+# Περιγραφή API
 
-# Methods 
+## Methods 
+
 ### Auth
 
 #### Login χρήστη
@@ -91,7 +92,7 @@ POST /api.php?action=auth
 ```
 Επιστρέφει token authentication.
 
-### game
+### Game
 
 Δημιουργία παιχνιδιού
 POST /api.php?action=create_game
